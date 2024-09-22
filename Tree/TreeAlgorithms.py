@@ -68,22 +68,14 @@ class Solution:
     
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         if root:
-            queue = deque([root])
+            queue = deque([(root.left, root.right)]) # Put left and right in a tuple to achieve easy comparison
             while queue:
-                level_size = len(queue)
-                curr_level = []
-                for _ in range(level_size):
-                    node = queue.popleft()
-                    curr_level.append(node.val) if node else None
-                    queue.append(node.left) if node else None
-                    queue.append(node.right) if node else None
-                if len(curr_level) >= 2:
-                    left = 0
-                    right = len(curr_level) - 1
-                    while left < right:
-                        if curr_level[left] != curr_level[right]:
-                            return False
-                        left += 1
-                        right -= 1
+                left, right = queue.popleft()
+                if not left and not right:
+                    continue
+                if not left or not right or left.val != right.val:
+                    return False
+                queue.append((left.left, right.right))
+                queue.append((left.right, right.left))
         return True
         
