@@ -49,6 +49,24 @@ class Solution:
                 result.append(curr_level)
         return result
     
+    def levelOrderBottom(self, root: Optional[TreeNode]) -> List[int]:
+        result = []
+        if root:
+            queue = deque([root])
+            while queue:
+                level_size = len(queue)
+                curr_level = []
+                for _ in range(level_size):
+                    node = queue.popleft()
+                    curr_level.append(node.val)
+                    if node.left:
+                        queue.append(node.left)
+                    if node.right:
+                        queue.append(node.right)
+                # Insert each level at the beginning of the result to avoid extra reversed() call
+                result.insert(0, curr_level)
+        return result
+    
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         if p is None and q is None:
             return True
@@ -68,7 +86,8 @@ class Solution:
     
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         if root:
-            queue = deque([(root.left, root.right)]) # Put left and right in a tuple to achieve easy comparison
+            # Put left and right in a tuple to achieve easy comparison
+            queue = deque([(root.left, root.right)])
             while queue:
                 left, right = queue.popleft()
                 if not left and not right:
