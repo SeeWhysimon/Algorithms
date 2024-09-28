@@ -18,7 +18,7 @@ class Solution:
             slow = slow.next 
         return False
     
-    # No. 142
+    # No. 142 ***
     def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if not head or not head.next:
             return None
