@@ -6,6 +6,30 @@ class ListNode:
         self.next = None
 
 class Solution:
+    # No. 61
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if head is None:
+            return head
+        curr, length = head, 1
+        while curr.next:
+            length += 1
+            curr = curr.next
+        k = k % length
+        if k == 0:
+            return head
+        dummy = ListNode(-1)
+        dummy.next = head
+        slow, fast = dummy, dummy
+        for _ in range(k):
+            fast = fast.next
+        while fast.next:
+            slow = slow.next
+            fast = fast.next
+        dummy.next = slow.next
+        fast.next = head
+        slow.next = None
+        return dummy.next
+
     # No. 141
     def hasCycle(self, head: Optional[ListNode]) -> bool:
         if not head or not head.next:
