@@ -35,3 +35,8 @@ class Solution:
             slow = slow.next
             fast = fast.next
         return slow
+    
+    # No.237
+    def deleteNode(self, node):
+        node.val = node.next.val
+        node.next = node.next.next
