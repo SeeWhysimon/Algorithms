@@ -89,9 +89,7 @@ class Solution:
                 prev = prev.next
             to_insert.next = prev.next
             prev.next = to_insert
-        return dummy.next
-
-              
+        return dummy.next 
     
     # No.237
     def deleteNode(self, node):
