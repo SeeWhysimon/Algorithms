@@ -10,25 +10,20 @@ class Solution:
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         if head is None:
             return head
-        curr, length = head, 1
-        while curr.next:
+        old_tail, length = head, 1
+        while old_tail.next:
             length += 1
-            curr = curr.next
+            old_tail = old_tail.next
         k = k % length
         if k == 0:
             return head
-        dummy = ListNode(-1)
-        dummy.next = head
-        slow, fast = dummy, dummy
-        for _ in range(k):
-            fast = fast.next
-        while fast.next:
-            slow = slow.next
-            fast = fast.next
-        dummy.next = slow.next
-        fast.next = head
-        slow.next = None
-        return dummy.next
+        new_tail = head
+        for _ in range(length - k - 1):
+            new_tail = new_tail.next
+        new_head = new_tail.next
+        new_tail.next = None
+        old_tail.next = head
+        return new_head
 
     # No. 141
     def hasCycle(self, head: Optional[ListNode]) -> bool:
