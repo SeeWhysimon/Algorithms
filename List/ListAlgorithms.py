@@ -55,6 +55,44 @@ class Solution:
             fast = fast.next
         return slow
     
+    # No. 147
+    def insertionSortList(self, head: Optional[ListNode]) -> Optional[ListNode]: 
+        # My version O(n^2)
+        ''' 
+            if not head or not head.next:
+                return head
+            fast = head.next
+            while fast:
+                slow = head
+                while slow != fast:
+                    if slow.val > fast.val:
+                        slow.val, fast.val = fast.val, slow.val
+                        break
+                    slow = slow.next
+                fast = fast.next
+            return head
+        '''  
+        # Official version O(n) ~ O(n^2)
+        if not head or not head.next:
+            return head
+        dummy = ListNode(-1)
+        dummy.next = head
+        curr = head
+        while curr and curr.next:
+            if curr.val <= curr.next.val:
+                curr = curr.next
+                continue
+            to_insert = curr.next
+            curr.next = curr.next.next
+            prev = dummy
+            while prev.next.val < to_insert.val:
+                prev = prev.next
+            to_insert.next = prev.next
+            prev.next = to_insert
+        return dummy.next
+
+              
+    
     # No.237
     def deleteNode(self, node):
         node.val = node.next.val
