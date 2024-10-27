@@ -25,6 +25,16 @@ class Solution:
         old_tail.next = head
         return new_head
 
+    # No. 106 ***
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        if not headA or not headB:
+            return None
+        ptr1, ptr2 = headA, headB
+        while ptr1 != ptr2:
+            ptr1 = ptr1 if ptr1 else headB
+            ptr2 = ptr2 if ptr2 else headA
+        return ptr1
+
     # No. 141
     def hasCycle(self, head: Optional[ListNode]) -> bool:
         if not head or not head.next:
